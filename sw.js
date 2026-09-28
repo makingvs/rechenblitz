@@ -1,4 +1,4 @@
-﻿// Service Worker: macht die App offline nutzbar.
+// Service Worker: macht die App offline nutzbar.
 // Strategie: zuerst Netz (damit Updates sofort ankommen), sonst Cache.
 // Bei neuen Dateien VERSION erhöhen und die Datei in FILES eintragen.
 
