@@ -1,5 +1,5 @@
 // Bereich für Eltern/Lehrkraft: PIN-geschützt. Profile, Freigaben, Auswertung, Sicherung.
-import { app, go, onLeave } from './state.js';
+import { app, go, onLeave, previousScreen } from './state.js';
 import * as db from './db.js';
 import { AVATARS, listProfiles, createProfile, saveProfile, deleteProfile, loadProgress, saveProgress, emptyProgress } from './profiles.js';
 import { PATH } from './strategies/index.js';
@@ -15,15 +15,19 @@ function planText(p) {
   return `Ablauf: Aufwärmen ${f(plan.warm)} · Üben ${f(plan.ueben)} · Bewegungspause ${plan.pause} · Tempo ${f(plan.tempo)} · Atempause ${plan.pause} · Tempo ${f(plan.tempo)} min · danach Abschluss und Belohnung.`;
 }
 import { EXERCISES } from './reward/entspannung.js';
+import { GAMES } from './reward/games.js';
 import { game, levelInfo, BADGES } from './gamify.js';
 import { esc, median, fmtSec, fmtDate, pick } from './util.js';
 
-let unlockedUntil = 0; // PIN gilt 10 Minuten
+// Die PIN gilt nur, solange man im Erwachsenen-Bereich bleibt. Wer ihn verlässt
+// (auch zu einem Test-Spiel), muss sie beim Zurückkommen erneut eingeben.
+let unlocked = false;
 
 export async function renderParent(root, view = {}) {
+  if (previousScreen() !== 'parent') unlocked = false;
   const pin = await db.get('meta', 'pin');
   if (!pin) return renderPin(root, 'setup');
-  if (Date.now() > unlockedUntil) return renderPin(root, 'check', pin);
+  if (!unlocked) return renderPin(root, 'check', pin);
   return renderDashboard(root, view);
 }
 
@@ -53,7 +57,7 @@ function renderPin(root, mode, pin) {
 
   const done = async () => {
     if (mode === 'check') {
-      if (typed === pin) { unlockedUntil = Date.now() + 10 * 60000; return go('parent'); }
+      if (typed === pin) { unlocked = true; return go('parent'); }
       msg.textContent = 'Falsche PIN';
       dots.classList.add('shake');
       setTimeout(() => dots.classList.remove('shake'), 400);
@@ -62,7 +66,7 @@ function renderPin(root, mode, pin) {
       titleEl.textContent = title.confirm;
     } else if (typed === first) {
       await db.put('meta', 'pin', typed);
-      unlockedUntil = Date.now() + 10 * 60000;
+      unlocked = true;
       return go('parent');
     } else {
       first = null;
@@ -132,8 +136,7 @@ async function renderDashboard(root, { selected } = {}) {
         <h2>Spiele & Entspannung testen</h2>
         <p class="muted">So sehen die Belohnungen und Pausen für die Kinder aus. Hier zählt nichts für den Lernstand.</p>
         <div class="btn-row start">
-          <button class="btn" data-test="spiel">🎈 Ballonspiel</button>
-          <button class="btn" data-test="memory">🧠 Memory</button>
+          ${GAMES.map(g => `<button class="btn" data-test="${g.id}">${g.icon} ${esc(g.title)}</button>`).join('')}
           ${Object.entries(EXERCISES).map(([k, ex]) => `<button class="btn" data-test-ex="${k}">${ex.icon} ${esc(ex.title)}</button>`).join('')}
         </div>
       </section>
@@ -402,7 +405,7 @@ async function doImport(file) {
     await db.importAll(data);
     app.profile = null;
     app.progress = null;
-    unlockedUntil = Date.now() + 10 * 60000;
+    unlocked = true;
     alert('Sicherung wiederhergestellt.');
     go('parent');
   } catch (e) {

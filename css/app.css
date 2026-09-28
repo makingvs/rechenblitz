@@ -382,6 +382,56 @@ select { font: inherit; font-size: 18px; padding: 8px 12px; border-radius: 12px;
 .mem-card.done .mem-front { box-shadow: inset 0 0 0 4px var(--green); }
 @media (max-aspect-ratio: 1/1) { .memory-board { grid-template-columns: repeat(3, 1fr); } }
 
+/* Hau den Hamster */
+.mole-field {
+  flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 12px;
+  max-width: 760px; width: 100%; margin: 0 auto; align-content: center;
+  background: linear-gradient(#BFE8A8, #8FCB7E); border-radius: 28px;
+}
+.hole {
+  position: relative; aspect-ratio: 1.3; max-height: 22vh; border: 0; padding: 0; overflow: hidden;
+  border-radius: 50% / 40%; background: radial-gradient(ellipse at 50% 70%, #5B3A1E 0 55%, #7A5230 56% 100%);
+}
+.mole {
+  position: absolute; left: 0; right: 0; bottom: -70%; font-size: clamp(48px, 9vw, 84px); line-height: 1;
+  transition: bottom .12s ease-out; pointer-events: none;
+}
+.hole.up .mole { bottom: 12%; }
+.hole.hit .mole { transform: scale(1.2); }
+
+/* Sternenfänger */
+.catch-field {
+  position: relative; flex: 1; overflow: hidden; border-radius: 28px; touch-action: none;
+  background: linear-gradient(#1B2A55, #3B4F8F 70%, #6C7FC0);
+}
+.fall { position: absolute; left: 0; top: 0; font-size: 44px; line-height: 1; pointer-events: none; will-change: transform; }
+.basket { position: absolute; bottom: 4%; left: 50%; transform: translateX(-50%); font-size: 80px; line-height: 1; transition: left .05s linear; pointer-events: none; }
+.basket.wet { animation: shake .35s; filter: grayscale(.6); }
+
+/* Nachmacher */
+.simon-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
+.simon-msg { font-size: 28px; font-weight: 800; margin: 0; min-height: 36px; }
+.simon { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: min(90vw, 60vh, 520px); }
+.pad {
+  --c: var(--green);
+  aspect-ratio: 1; border: 0; border-radius: 32px; font-size: clamp(56px, 10vw, 96px);
+  background: var(--c); opacity: .45; box-shadow: 0 6px 0 rgba(0, 0, 0, .15); transition: opacity .1s, transform .1s;
+}
+.pad.lit { opacity: 1; transform: scale(1.05); box-shadow: 0 0 0 6px #fff, 0 0 40px var(--c); }
+
+/* Malen */
+.paint { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.paint-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.swatch { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--c); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .6); }
+.swatch.on, .size.on, .stamp.on { outline: 4px solid var(--ink); outline-offset: 2px; }
+.size { width: 44px; height: 44px; border-radius: 12px; border: 0; background: var(--surface); display: grid; place-items: center; }
+.size i { display: block; border-radius: 50%; background: var(--ink); }
+.stamp { width: 44px; height: 44px; border-radius: 12px; border: 0; background: var(--surface); font-size: 24px; padding: 0; }
+.tool-sep { width: 2px; height: 32px; background: var(--line); margin: 0 4px; }
+.paint-canvas { flex: 1; width: 100%; min-height: 0; border-radius: 22px; background: #fff; box-shadow: var(--shadow); touch-action: none; }
+
+.game-grid .tile { min-height: 160px; }
+
 /* ---------- Animationen ---------- */
 @keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
 @keyframes toast-in { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }

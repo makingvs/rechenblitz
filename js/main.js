@@ -9,6 +9,11 @@ import { renderSpiel } from './reward/spiel.js';
 import { renderEntspannung } from './reward/entspannung.js';
 import { renderMemory } from './reward/memory.js';
 import { renderSammlung } from './screens/sammlung.js';
+import { renderSpiele } from './reward/games.js';
+import { renderMaulwurf } from './reward/maulwurf.js';
+import { renderFaenger } from './reward/faenger.js';
+import { renderNachmacher } from './reward/nachmacher.js';
+import { renderMalen } from './reward/malen.js';
 
 register('profiles', renderProfiles);
 register('menu', renderMenu);
@@ -19,6 +24,11 @@ register('spiel', renderSpiel);
 register('entspannung', renderEntspannung);
 register('memory', renderMemory);
 register('sammlung', renderSammlung);
+register('spiele', renderSpiele);
+register('maulwurf', renderMaulwurf);
+register('faenger', renderFaenger);
+register('nachmacher', renderNachmacher);
+register('malen', renderMalen);
 
 // Offline-Betrieb
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {

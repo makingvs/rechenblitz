@@ -64,9 +64,7 @@ export function renderSummary(root, stats) {
       </div>
       ${gameHTML(g, newly)}
       <div class="btn-row">
-        ${success ? `
-          <button class="btn btn-big btn-go" data-act="spiel">🎈 Ballonspiel</button>
-          <button class="btn btn-big btn-go" data-act="memory">🧠 Memory</button>` : ''}
+        ${success ? '<button class="btn btn-big btn-go" data-act="spiele">🎁 Belohnung aussuchen</button>' : ''}
         <button class="btn btn-big ${success ? '' : 'btn-go'}" data-act="relax">🌿 Entspannen</button>
         <button class="btn btn-big btn-ghost" data-act="menu">Zum Menü</button>
       </div>
@@ -122,8 +120,7 @@ function renderFree(root, stats, newly, g) {
 
 function bind(root, again) {
   const on = (act, fn) => root.querySelector(`[data-act="${act}"]`)?.addEventListener('click', fn);
-  on('spiel', () => go('spiel'));
-  on('memory', () => go('memory'));
+  on('spiele', () => go('spiele'));
   on('relax', () => go('entspannung'));
   on('menu', () => go('menu'));
   on('again', again);

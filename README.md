@@ -83,7 +83,13 @@ Normalerweise wird **kein Bild** gezeigt, nur ein kleiner „💡 Hilfe“-Knopf
 - **Rekorde:** Sterne pro Einheit, Tempo und längste Serie.
 - **Abzeichen 🏅:** 18 Stück, z. B. Feuer-Serie, Fehlerfrei, Wochen-Held oder „Strategie gemeistert“.
 - **Sticker-Album 📒:** Jede Einheit mit Belohnung bringt einen neuen Sticker (48 zum Sammeln).
-- **Zwei Belohnungsspiele:** Ballonspiel und Memory.
+- **Sechs Belohnungsspiele** (nach einer erfolgreichen Einheit frei wählbar), alle ohne Rechnen:
+  - 🎈 Ballonspiel (Reaktion)
+  - 🐹 Hau den Hamster (Reaktion)
+  - 🧺 Sternenfänger (Geschick)
+  - 🧠 Memory (Gedächtnis)
+  - 🎵 Nachmacher (Gedächtnis, Reihenfolge merken)
+  - 🎨 Malen (kreativ, 3 Minuten)
 
 Alles ist über „Meine Sammlung“ im Menü zu sehen.
 
@@ -92,7 +98,8 @@ Alles ist über „Meine Sammlung“ im Menü zu sehen.
 - **Übungsdauer** pro Kind: 10, 15, 20, 25 oder 30 Minuten.
 - **Pausenlänge** pro Kind: 1, 2 oder 3 Minuten. Die Pausen werden nie gekürzt, auch nicht im Testmodus. Die Rechenzeit wird entsprechend angepasst, beträgt aber mindestens 40 % der Gesamtzeit. Die genaue Aufteilung wird direkt unter der Einstellung angezeigt.
 - **Zeiten der Übungen:** Bewegung 15 s pro Anweisung, Anspannen 6 s und Lockern 10 s, Atmen 5 s ein und 5 s aus.
-- **Spiele & Entspannung testen:** Ballonspiel, Memory und alle Entspannungsübungen direkt ausprobieren.
+- **Spiele & Entspannung testen:** alle Spiele und Entspannungsübungen direkt ausprobieren.
+- **PIN:** Wird bei jedem Betreten des Erwachsenen-Bereichs abgefragt, auch nach dem Testen eines Spiels.
 
 - **Überblick:** Einheiten, aktuelles Tempo, Hinweise
 - **Verlauf:** Sekunden pro Aufgabe und Trefferquote, auch als Tabelle

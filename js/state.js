@@ -8,6 +8,10 @@ export const app = {
 
 const screens = {};
 let cleanups = [];
+let current = null, previous = null;
+
+// Von welchem Bildschirm kam man zum aktuellen? (z. B. für die PIN-Abfrage)
+export const previousScreen = () => previous;
 
 export function register(name, render) { screens[name] = render; }
 
@@ -17,6 +21,8 @@ export function onLeave(fn) { cleanups.push(fn); }
 export function go(name, ...args) {
   for (const fn of cleanups) { try { fn(); } catch (e) { console.error(e); } }
   cleanups = [];
+  previous = current;
+  current = name;
   try { window.speechSynthesis?.cancel(); } catch { /* optional */ }
   const root = document.getElementById('app');
   root.innerHTML = '';
