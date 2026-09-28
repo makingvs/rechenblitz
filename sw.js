@@ -1,6 +1,6 @@
 ﻿// Service Worker: macht die App offline nutzbar.
 // Strategie: zuerst Netz (damit Updates sofort ankommen), sonst Cache.
-// Bei neuen Dateien VERSION erhÃ¶hen und die Datei in FILES eintragen.
+// Bei neuen Dateien VERSION erhöhen und die Datei in FILES eintragen.
 
 const VERSION = 'rechenblitz-v6';
 const FILES = [
