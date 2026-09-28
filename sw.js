@@ -2,7 +2,7 @@
 // Strategie: zuerst Netz (damit Updates sofort ankommen), sonst Cache.
 // Bei neuen Dateien VERSION erhöhen und die Datei in FILES eintragen.
 
-const VERSION = 'rechenblitz-v6';
+const VERSION = 'rechenblitz-v7';
 const FILES = [
   './',
   './index.html',
