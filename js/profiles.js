@@ -1,5 +1,6 @@
 import * as db from './db.js';
 import { uid } from './util.js';
+import { defaultLook } from './avatar.js';
 
 export const AVATARS = ['🦊', '🐼', '🐯', '🐸', '🦁', '🐨', '🐙', '🦄', '🐢', '🐝', '🐧', '🐬', '🐻', '🐰', '🦉', '🐞'];
 
@@ -22,6 +23,7 @@ export async function createProfile(name, avatar) {
     created: Date.now(),
     settings: { speech: false, sound: true, minutes: 25, pauseMinutes: 1 },
     unlocked: ['kraft5'],
+    look: defaultLook(),
   };
   await db.put('profiles', p.id, p);
   await db.put('progress', p.id, emptyProgress());

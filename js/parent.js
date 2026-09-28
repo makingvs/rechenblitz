@@ -12,7 +12,7 @@ function planText(p) {
   const total = p.settings.minutes || 25;
   const plan = phasePlan(total, p.settings.pauseMinutes || 1);
   const f = x => String(x).replace('.', ',');
-  return `Ablauf: Aufwärmen ${f(plan.warm)} · Üben ${f(plan.ueben)} · Bewegungspause ${plan.pause} · Tempo ${f(plan.tempo)} · Atempause ${plan.pause} · Tempo ${f(plan.tempo)} min · danach Abschluss und Belohnung.`;
+  return `Ablauf: Aufwärmen ${f(plan.warm)} · Üben ${f(plan.ueben)} · Bewegungspause ${plan.pause} · Tempo ${f(plan.tempo)} · Jump & Run 1–3 · Atempause ${plan.pause} · Tempo ${f(plan.tempo)} min · danach Abschluss, Avatar und Belohnung.`;
 }
 import { EXERCISES } from './reward/entspannung.js';
 import { GAMES } from './reward/games.js';

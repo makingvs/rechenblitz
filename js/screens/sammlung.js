@@ -1,6 +1,7 @@
 // „Meine Sammlung“: Level, Rekorde, Abzeichen und Sticker-Album des Kindes.
 import { app, go } from '../state.js';
 import { game, levelInfo, currentStreak, BADGES, STICKERS } from '../gamify.js';
+import { avatarSVG } from '../avatar.js';
 import { esc, fmtSec } from '../util.js';
 
 export function renderSammlung(root) {
@@ -20,7 +21,7 @@ export function renderSammlung(root) {
 
       <section class="card game-card">
         <div class="xp-line">
-          <span class="avatar small">${profile.avatar}</span>
+          <button class="mini-avatar" data-act="avatar" aria-label="Avatar gestalten">${avatarSVG(profile.look)}</button>
           <span class="level-chip">Level ${li.level}</span>
           <span class="level-title">${esc(li.title)}</span>
         </div>
@@ -52,4 +53,5 @@ export function renderSammlung(root) {
       </section>
     </div>`;
   root.querySelector('[data-act="back"]').addEventListener('click', () => go('menu'));
+  root.querySelector('[data-act="avatar"]').addEventListener('click', () => go('avatar', { back: 'sammlung' }));
 }

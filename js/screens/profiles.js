@@ -1,9 +1,11 @@
 import { app, go } from '../state.js';
-import { listProfiles, loadProgress } from '../profiles.js';
+import { listProfiles, loadProgress, saveProfile } from '../profiles.js';
+import { avatarSVG, ensureLook } from '../avatar.js';
 import { setSpeech } from '../ui/speech.js';
 import { setSound, esc } from '../util.js';
 
 export async function selectProfile(p) {
+  if (ensureLook(p)) await saveProfile(p);
   app.profile = p;
   app.progress = await loadProgress(p.id);
   setSpeech(p.settings?.speech);
@@ -12,15 +14,16 @@ export async function selectProfile(p) {
 
 export async function renderProfiles(root) {
   const profiles = await listProfiles();
+  for (const p of profiles) if (ensureLook(p)) await saveProfile(p);
   root.innerHTML = `
-    <div class="page page-center">
-      <h1 class="logo">Rechen<span>blitz</span> ⚡</h1>
+    <div class="page page-center hero-page">
+      <h1 class="logo">Rechen<span>blitz</span> <i>⚡</i></h1>
       ${profiles.length ? `
         <p class="lead">Wer übt heute?</p>
         <div class="avatar-grid">
           ${profiles.map(p => `
             <button class="avatar-btn" data-id="${p.id}">
-              <span class="avatar">${p.avatar}</span>
+              <span class="avatar-pic">${avatarSVG(p.look)}</span>
               <span class="avatar-name">${esc(p.name)}</span>
             </button>`).join('')}
         </div>` : `

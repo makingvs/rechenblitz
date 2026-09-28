@@ -9,6 +9,7 @@ import { numpad } from './ui/numpad.js';
 import { say } from './ui/speech.js';
 import { sounds, esc, median } from './util.js';
 import { runExercise } from './reward/entspannung.js';
+import { runJumpRun } from './reward/jumprun.js';
 
 export const DURATIONS = [10, 15, 20, 25, 30];
 export const PAUSES = [1, 2, 3];
@@ -25,8 +26,10 @@ export function sessionMinutes(profile = app.profile) {
  * die Rechenzeit ist der Rest (ohne ca. 3/25 für den Abschluss), mindestens aber 40 % der Gesamtzeit.
  * Bei 25 min und 1 min Pause: Aufwärmen 3 · Üben 7 · Pause 1 · Tempo 5 · Pause 1 · Tempo 5 · Abschluss.
  */
+export const JUMPRUN_BASE = 1.5; // eingeplante Minuten für das Jump & Run (1–3 min je nach Treffern)
+
 export function phasePlan(total, pause) {
-  const tasks = Math.max(total * 0.4, total * 22 / 25 - 2 * pause);
+  const tasks = Math.max(total * 0.4, total * 22 / 25 - 2 * pause - JUMPRUN_BASE);
   const part = x => Math.round(tasks * x / 20 * 10) / 10;
   return { warm: part(3), ueben: part(7), tempo: part(5), pause };
 }
@@ -51,6 +54,7 @@ function buildPhases(mode, strategyId) {
     { id: 'pause1', title: 'Bewegungspause', icon: '🤸', kind: 'pause', ms: m(plan.pause), exercise: 'bewegung' },
     { id: 'tempo1', title: 'Tempo', icon: '⚡', kind: 'task', ms: m(plan.tempo), weakShare: 0.3, pool: tempoPool, tempo: true,
       intro: 'Jetzt zählt das Tempo! Für jede richtige und schnelle Antwort bekommst du einen Stern.' },
+    { id: 'jumprun', title: 'Jump & Run', icon: '🏃', kind: 'jumprun', pool: tempoPool },
     { id: 'pause2', title: 'Atempause', icon: '🌿', kind: 'pause', ms: m(plan.pause), exercise: 'atmen' },
     { id: 'tempo2', title: 'Tempo', icon: '⚡', kind: 'task', ms: m(plan.tempo), weakShare: 0.3, pool: tempoPool, tempo: true,
       intro: 'Letzte Tempo-Runde! Schaffst du noch mehr Sterne?' },
@@ -146,6 +150,7 @@ export function renderSession(root, { mode = 'full', strategyId } = {}) {
     els.visual.innerHTML = '';
     updateBar();
     if (phase.kind === 'pause') return showPause();
+    if (phase.kind === 'jumprun') return showJumpRun();
     if (phase.intro) return showIntro();
     startPhase();
   }
@@ -176,6 +181,20 @@ export function renderSession(root, { mode = 'full', strategyId } = {}) {
     els.overlay.innerHTML = `<div class="card pause-card"></div>`;
     els.overlay.hidden = false;
     stopOverlay = runExercise(els.overlay.firstElementChild, phase.exercise, phase.ms, () => nextPhase());
+  }
+
+  function showJumpRun() {
+    els.overlay.innerHTML = '';
+    els.overlay.classList.add('overlay-full');
+    els.overlay.hidden = false;
+    stopOverlay = runJumpRun(els.overlay, {
+      pool: phase.pool, progress, look: app.profile.look,
+      onDone: res => {
+        stats.jr = res;
+        els.overlay.classList.remove('overlay-full');
+        nextPhase();
+      },
+    });
   }
 
   function hideOverlay() {

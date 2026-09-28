@@ -35,7 +35,7 @@ export function renderSummary(root, stats) {
 
   const rec = {
     date: Date.now(), minutes: stats.minutes, n: stats.n, correct: stats.correct,
-    stars: stats.stars, focus: stats.focus, success, bestCombo: stats.bestCombo,
+    stars: stats.stars, focus: stats.focus, success, bestCombo: stats.bestCombo, jr: stats.jr || null,
     tempo: { n: t.n, correct: t.correct, stars: t.stars, medianMs: med, perMin: +perMin.toFixed(2), acc: +acc.toFixed(3) },
   };
   progress.sessions.push(rec);
@@ -61,11 +61,13 @@ export function renderSummary(root, stats) {
         <div class="stat"><span class="stat-val">⭐ ${stats.stars}</span><span class="stat-lbl">Sterne${stats.bonus ? ` (${stats.bonus} Bonus)` : ''}</span></div>
         <div class="stat"><span class="stat-val">${med ? fmtSec(med) : '–'}</span><span class="stat-lbl">pro Aufgabe (Tempo)</span><span class="stat-cmp">${compare}</span></div>
         <div class="stat"><span class="stat-val">🔥 ${stats.bestCombo}</span><span class="stat-lbl">längste Serie</span></div>
+        ${stats.jr ? `<div class="stat"><span class="stat-val">🏃 ${stats.jr.correct}</span><span class="stat-lbl">richtig im Jump & Run</span></div>` : ''}
       </div>
       ${gameHTML(g, newly)}
       <div class="btn-row">
         ${success ? '<button class="btn btn-big btn-go" data-act="spiele">🎁 Belohnung aussuchen</button>' : ''}
-        <button class="btn btn-big ${success ? '' : 'btn-go'}" data-act="relax">🌿 Entspannen</button>
+        <button class="btn btn-big ${success ? '' : 'btn-go'}" data-act="avatar">👕 Avatar gestalten</button>
+        <button class="btn btn-big" data-act="relax">🌿 Entspannen</button>
         <button class="btn btn-big btn-ghost" data-act="menu">Zum Menü</button>
       </div>
     </div>`;
@@ -121,6 +123,7 @@ function renderFree(root, stats, newly, g) {
 function bind(root, again) {
   const on = (act, fn) => root.querySelector(`[data-act="${act}"]`)?.addEventListener('click', fn);
   on('spiele', () => go('spiele'));
+  on('avatar', () => go('avatar'));
   on('relax', () => go('entspannung'));
   on('menu', () => go('menu'));
   on('again', again);

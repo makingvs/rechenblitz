@@ -2,7 +2,7 @@
 // Strategie: zuerst Netz (damit Updates sofort ankommen), sonst Cache.
 // Bei neuen Dateien VERSION erhöhen und die Datei in FILES eintragen.
 
-const VERSION = 'rechenblitz-v4';
+const VERSION = 'rechenblitz-v5';
 const FILES = [
   './',
   './index.html',
@@ -27,6 +27,9 @@ const FILES = [
   './js/reward/faenger.js',
   './js/reward/nachmacher.js',
   './js/reward/malen.js',
+  './js/reward/jumprun.js',
+  './js/avatar.js',
+  './js/screens/avatar-editor.js',
   './js/screens/sammlung.js',
   './js/tasks/facts.js',
   './js/tasks/modules.js',

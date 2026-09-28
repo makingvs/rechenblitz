@@ -33,15 +33,24 @@ Alle Daten bleiben **nur auf dem iPad** (IndexedDB). Es gibt keinen Server und k
 
 | Teil | Dauer | Inhalt |
 |---|---|---|
-| 🔥 Aufwärmen | 3 min | fast nur sichere Aufgaben |
-| 🧠 Üben | 7 min | aktuelle Strategie, mit Bild |
+| 🔥 Aufwärmen | 2,8 min | fast nur sichere Aufgaben |
+| 🧠 Üben | 6,5 min | aktuelle Strategie |
 | 🤸 Bewegungspause | 1 min | |
-| ⚡ Tempo | 5 min | gemischt, Sterne für schnelle richtige Antworten |
-| 🌿 Atempause | 1 min | |
-| ⚡ Tempo | 5 min | gemischt |
-| 🏆 Abschluss | ca. 3 min | Ergebnis und Belohnung |
+| ⚡ Tempo | 4,6 min | gemischt, Sterne für schnelle richtige Antworten |
+| 🏃 Jump & Run | 1–3 min | Auflockerung mit Rechenblasen (siehe unten) |
+| 🌿 Atempause | 1 min | beruhigt nach dem Spiel |
+| ⚡ Tempo | 4,6 min | gemischt |
+| 🏆 Abschluss | ca. 3 min | Ergebnis, Avatar gestalten, Belohnung |
 
-**Belohnung** (Ballonspiel, 2 Minuten): Dafür braucht es in den Tempo-Runden **mindestens 85 % richtig** und eine Verbesserung. Verglichen wird mit dem **eigenen** Schnitt der letzten 3 Einheiten, entweder beim Tempo oder bei der Anzahl richtiger Antworten pro Minute. Belohnt wird also der eigene Fortschritt, nicht der Vergleich mit anderen.
+**Jump & Run:** Der eigene Avatar läuft durch eine Landschaft und springt über Hindernisse (Tippen = Springen, zweimal Tippen = Doppelsprung). Regelmäßig erscheint oben eine Rechnung, dazu kommen drei Blasen mit Zahlen: am Boden, auf Sprunghöhe und auf Doppelsprunghöhe. Das Kind springt in die richtige Blase.
+- Start mit 60 Sekunden Spielzeit.
+- Jede richtige Lösung bringt +10 Sekunden, insgesamt höchstens 3 Minuten.
+- Ein Hindernis kostet 3 Sekunden.
+- Die Rechnungen werden **nicht vorgelesen**.
+
+**Avatar:** Nach jeder Einheit kann das Kind seinen Avatar verkleiden und gestalten: Haut, Frisur, Haarfarbe, Augen, Mund, Shirt, Motiv, Kopfbedeckung, Brille, Umhang und Hintergrund. Besondere Teile wie Krone, Zauberhut oder Astronautenhelm werden mit höherem Level freigeschaltet. Der Avatar erscheint auf dem Startbildschirm, im Menü und als Spielfigur im Jump & Run.
+
+**Belohnung** (Spiel nach Wahl): Dafür braucht es in den Tempo-Runden **mindestens 85 % richtig** und eine Verbesserung. Verglichen wird mit dem **eigenen** Schnitt der letzten 3 Einheiten, entweder beim Tempo oder bei der Anzahl richtiger Antworten pro Minute. Belohnt wird also der eigene Fortschritt, nicht der Vergleich mit anderen.
 
 Entspannungsübungen sind immer verfügbar: Ballon-Atmen, Bewegungspause, Anspannen & Lockern.
 

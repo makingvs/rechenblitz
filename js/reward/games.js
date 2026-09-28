@@ -3,6 +3,7 @@ import { go } from '../state.js';
 import { esc } from '../util.js';
 
 export const GAMES = [
+  { id: 'jumprun', icon: '🏃', title: 'Jump & Run', kind: 'Abenteuer' },
   { id: 'spiel', icon: '🎈', title: 'Ballonspiel', kind: 'Reaktion' },
   { id: 'maulwurf', icon: '🐹', title: 'Hau den Hamster', kind: 'Reaktion' },
   { id: 'faenger', icon: '🧺', title: 'Sternenfänger', kind: 'Geschick' },

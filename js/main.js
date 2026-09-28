@@ -14,6 +14,8 @@ import { renderMaulwurf } from './reward/maulwurf.js';
 import { renderFaenger } from './reward/faenger.js';
 import { renderNachmacher } from './reward/nachmacher.js';
 import { renderMalen } from './reward/malen.js';
+import { renderJumpRun } from './reward/jumprun.js';
+import { renderAvatarEditor } from './screens/avatar-editor.js';
 
 register('profiles', renderProfiles);
 register('menu', renderMenu);
@@ -29,6 +31,8 @@ register('maulwurf', renderMaulwurf);
 register('faenger', renderFaenger);
 register('nachmacher', renderNachmacher);
 register('malen', renderMalen);
+register('jumprun', renderJumpRun);
+register('avatar', renderAvatarEditor);
 
 // Offline-Betrieb
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
