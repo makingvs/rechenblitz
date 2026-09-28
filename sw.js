@@ -2,15 +2,15 @@
 // Strategie: zuerst Netz (damit Updates sofort ankommen), sonst Cache.
 // Bei neuen Dateien VERSION erhöhen und die Datei in FILES eintragen.
 
-const VERSION = 'rechenblitz-v7';
+const VERSION = 'rechenblitz-v8';
 const FILES = [
   './',
   './index.html',
   './manifest.webmanifest',
   './css/app.css',
-  './icons/icon-180.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
+  './icons/rechenblitz-v2-180.png',
+  './icons/rechenblitz-v2-192.png',
+  './icons/rechenblitz-v2-512.png',
   './js/main.js',
   './js/state.js',
   './js/db.js',
@@ -70,7 +70,8 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
   e.respondWith(
-    fetch(req)
+    // cache: 'no-cache' → beim Server nachfragen statt alte Kopie aus dem Browser-Cache zu nehmen
+    fetch(req, { cache: 'no-cache' })
       .then(res => {
         if (res.ok) {
           const copy = res.clone();
