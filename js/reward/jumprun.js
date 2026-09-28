@@ -9,7 +9,7 @@ import { avatarImage, defaultLook } from '../avatar.js';
 import { sounds, shuffle, esc } from '../util.js';
 
 export const JR = { startSec: 60, bonusSec: 10, maxSec: 180, stumbleSec: 3 };
-const OBSTACLES = ['🪨', '🌵', '🍄', '🪵'];
+const OBSTACLES = ['🪨', '🌵', '🍄', '🚧'];
 
 /**
  * Spielt ein Jump & Run in el. onDone({correct, wrong, coins}) nach dem Ende.
@@ -176,14 +176,25 @@ export function runJumpRun(el, { pool, progress, look, onDone }) {
 
     const ps = pSize();
     const pcx = px(), pcy = groundY - p.y - ps * 0.5;
-    const safeFromGate = () => !st.gate || st.gate.done || st.gate.bubbles[0].x - pcx > v * 1.4 || st.gate.bubbles[0].x < pcx - 100;
-
-    // Hindernisse, Sterne, Tore erzeugen
+    // Hindernisse, Sterne, Tore erzeugen.
+    // Rund um jedes Rechentor bleibt die Strecke frei: vor den Blasen CLEAR_BEFORE Sekunden Laufweg
+    // (Zeit zum Landen und Zielen), danach CLEAR_AFTER Sekunden.
+    const CLEAR_BEFORE = 2.6, CLEAR_AFTER = 1.2;
+    const spawnX = W + 40;
+    const gateX = W + v * 1.6;
     st.nextGate -= dt; st.nextObstacle -= dt; st.nextCoins -= dt;
-    if (st.nextGate <= 0 && (!st.gate || st.gate.bubbles.every(b => b.x < -b.r))) { newGate(); st.nextGate = 6.5; }
+    const oldGateGone = !st.gate || st.gate.bubbles.every(b => b.x < -b.r);
+    const zoneFree = st.items.every(it => it.kind !== 'rock' || it.x < gateX - CLEAR_BEFORE * v);
+    if (st.nextGate <= 0 && oldGateGone && zoneFree) { newGate(); st.nextGate = 6.5; }
     if (st.nextObstacle <= 0) {
-      if (safeFromGate()) st.items.push({ kind: 'rock', ch: OBSTACLES[Math.floor(Math.random() * OBSTACLES.length)], x: W + 40, y: groundY, s: H * 0.075 });
-      st.nextObstacle = 2.2 + Math.random() * 2;
+      const gateSoon = st.nextGate < 1.2;
+      const gateNear = st.gate && st.gate.bubbles.some(b => b.x > spawnX - CLEAR_AFTER * v);
+      if (!gateSoon && !gateNear) {
+        st.items.push({ kind: 'rock', ch: OBSTACLES[Math.floor(Math.random() * OBSTACLES.length)], x: spawnX, y: groundY, s: H * 0.1 });
+        st.nextObstacle = 2.2 + Math.random() * 2;
+      } else {
+        st.nextObstacle = 0.3; // später nochmal versuchen
+      }
     }
     if (st.nextCoins <= 0) {
       const high = Math.random() < 0.5;
@@ -255,7 +266,19 @@ export function runJumpRun(el, { pool, progress, look, onDone }) {
 
     ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
     for (const it of st.items) {
-      if (it.kind === 'rock' && it.hit) ctx.globalAlpha = 0.5;
+      if (it.kind === 'rock') {
+        // Hindernis gut sichtbar machen: Bodenschatten, heller Hof und Warn-Ring
+        ctx.globalAlpha = it.hit ? 0.4 : 1;
+        ctx.fillStyle = 'rgba(0,0,0,.25)';
+        ctx.beginPath(); ctx.ellipse(it.x, groundY + 3, it.s * 0.5, it.s * 0.1, 0, 0, 7); ctx.fill();
+        const cy = it.y - it.s * 0.45;
+        const halo = ctx.createRadialGradient(it.x, cy, it.s * 0.2, it.x, cy, it.s * 0.75);
+        halo.addColorStop(0, 'rgba(255,255,255,.95)'); halo.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = halo;
+        ctx.beginPath(); ctx.arc(it.x, cy, it.s * 0.75, 0, 7); ctx.fill();
+        ctx.strokeStyle = 'rgba(255,107,107,.9)'; ctx.lineWidth = 4 * unit;
+        ctx.beginPath(); ctx.arc(it.x, cy, it.s * 0.62, 0, 7); ctx.stroke();
+      }
       ctx.font = `${it.s}px serif`;
       ctx.fillText(it.ch, it.x, it.y + (it.kind === 'rock' ? it.s * 0.12 : 0));
       ctx.globalAlpha = 1;

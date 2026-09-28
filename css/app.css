@@ -433,6 +433,7 @@ select { font: inherit; font-size: 18px; padding: 8px 12px; border-radius: 12px;
 .jr-task {
   background: #fff; border-radius: 24px; padding: 8px 28px; font-size: clamp(36px, 6vw, 60px); font-weight: 900;
   box-shadow: 0 10px 30px rgba(40, 30, 120, .2); border: 4px solid var(--primary-2); animation: pop-in .3s ease-out;
+  white-space: nowrap;
 }
 .jr-task .q { color: var(--primary); }
 .jr-task.good { border-color: var(--green); }
@@ -570,4 +571,6 @@ details summary { cursor: pointer; color: var(--ink-2); margin-top: 8px; }
   .hero { flex-direction: column; text-align: center; }
   .hero-top h1 { font-size: 28px; }
   .jr-pill { font-size: 16px; padding: 8px 12px; }
+  .jr-hud { flex-wrap: wrap; }
+  .jr-task { order: 3; margin: 0 auto; font-size: 34px; padding: 6px 20px; }
 }
